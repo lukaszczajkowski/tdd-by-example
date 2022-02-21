@@ -1,23 +1,43 @@
 package guru.springframework;
 
-public abstract class Money {
+public class Money {
 
     protected int amount;
+    protected String currency;
 
-    protected abstract Money times(int multiplier);
-
-    public static Dollar dollar(int amount) {
-        return new Dollar(amount);
+    public Money(int amount, String currency) {
+        this.amount = amount;
+        this.currency = currency;
     }
 
-    public static Franc franc(int amount) {
-        return new Franc(amount);
+    protected Money times(int multiplier) {
+        return new Money(amount * multiplier, currency);
+    }
+
+    protected String currency() {
+        return currency;
+    }
+
+    public static Money dollar(int amount) {
+        return new Money(amount, "USD");
+    }
+
+    public static Money franc(int amount) {
+        return new Money(amount, "CHF");
     }
 
     public boolean equals(Object object) {
         Money money = (Money) object;
 
         return amount == money.amount
-                && getClass().equals(object.getClass());
+                && this.currency.equals(money.currency);
+    }
+
+    @Override
+    public String toString() {
+        return "Money{" +
+                "amount=" + amount +
+                ", currency='" + currency + '\'' +
+                '}';
     }
 }
