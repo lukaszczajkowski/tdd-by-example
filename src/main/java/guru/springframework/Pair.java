@@ -1,5 +1,7 @@
 package guru.springframework;
 
+import java.util.Objects;
+
 public class Pair {
 
     private final String from;
@@ -17,8 +19,8 @@ public class Pair {
 
         Pair pair = (Pair) o;
 
-        if (from != null ? !from.equals(pair.from) : pair.from != null) return false;
-        return to != null ? to.equals(pair.to) : pair.to == null;
+        if (!Objects.equals(from, pair.from)) return false;
+        return Objects.equals(to, pair.to);
     }
 
     @Override
